@@ -1,10 +1,10 @@
  const SEARCH_API = 'https://www.googleapis.com/books/v1/volumes?q=';
  const API_KEY= '&key=AIzaSyCMluP6sEA55bAIKbuqJniMcANCE9w1-Qc';
- const main = document.getElementById('main');
+ const main = document.querySelector('.main');
  const search = document.getElementById('search-term');
  const form = document.querySelector('form');
  const authorRadio = document.getElementById('author');
- const titleRadio = document.getElementById('tv');
+ const titleRadio = document.getElementById('title');
  const readingListLink = document.querySelector('.nav-link');
 
 async function fetchBook(url){
@@ -12,7 +12,6 @@ async function fetchBook(url){
     const data = await res.json()
     showBooks(data.items)
 }
-
 
 function addToReadingList(book) {
   const readingList = JSON.parse(localStorage.getItem('readingList')) || [];
@@ -34,6 +33,7 @@ function showBooks(books, isReadingList){
     const { title, authors, description, imageLinks, previewLink } = book.volumeInfo;
 
     const imageSrc = imageLinks ? imageLinks.thumbnail : 'placeholder.jpg';
+    const bookDescription = description || 'No description available';
 
     const bookElement = document.createElement('div');
     bookElement.classList.add('book');
@@ -42,9 +42,19 @@ function showBooks(books, isReadingList){
         <img src="${imageSrc}" alt="Book Cover">
         <h2>${title}</h2>
         <p>${authors && authors.length > 0 ? 'Author' + (authors.length > 1 ? 's' : '') + ': ' + authors.join(', ') : 'Author: Unknown'}</p>
-        <p class="description">${description}</p>
-        ${isReadingList ? `<button class="read-book">Read Book</button>` : `<button class="add-to-reading-list">Add to Reading List</button>`}
+        <p class="description">${bookDescription}</p>
+        ${isReadingList ? `<button class="read-book">Read Book</button>` : `<button class="add-to-reading-list">Add to Readling List</button>`}
     `;
+    const imageElement = bookElement.querySelector('img');
+    const descriptionElement = bookElement.querySelector('.description');
+
+    imageElement.addEventListener('click', () => {
+      descriptionElement.classList.toggle('show-description');
+    });
+   
+   descriptionElement.addEventListener('click', () =>{
+    descriptionElement.classList.toggle('show-description');
+   })
 
     if (isReadingList) {
       const readBookButton = bookElement.querySelector('.read-book');
@@ -79,14 +89,20 @@ function openBookPreview(previewLink) {
 form.addEventListener('submit', (e)=> {
   e.preventDefault()
   const searchTerm = search.value;
-  let searchType = 'inauthor';
+  let searchType = '';
+
   if (authorRadio.checked) {
     searchType = 'inauthor';
   } else if (titleRadio.checked) {
     searchType = 'intitle';
   }
+  
+  if (!searchTerm) {
+    alert('Please enter something');
+    return;
+  }
 
-  if(searchTerm && searchTerm !== ''){
+  if(searchType){
     const url = SEARCH_API + searchType + ':' + searchTerm + API_KEY;
     fetchBook(url);
     search.value = '';
@@ -95,21 +111,3 @@ form.addEventListener('submit', (e)=> {
   }
 }) 
 
-
-// async function display() {
-//     try {
-//       const results = await fetchAPIData('volumes');
-//       console.log(results);
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   }
-
-
-
-//search authors
-// async function search(){
-//     const queryString = window.location.search;
-//     const urlParams = new URLSearchParams(queryString);
-//     console.log(urlParams);
-// }

@@ -4,7 +4,11 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <!--Font Awesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts-->
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap"
@@ -12,12 +16,13 @@
     />
     <link rel="stylesheet" href="style.css" />
     <script src="script.js" defer></script>
-    <title>Poetry Hub</title>
+    <title>Book Search App</title>
   </head>
   <body>
-    <header class="main-header">
+    <div class = main-container>
+    <header class="header">
       <div class="container">
-        <div class="logo"><a href="/">Poetry</a></div>
+        <div class="logo">Book Search App</div>
         <nav>
           <ul>
             <li>
@@ -29,16 +34,14 @@
     </header>
 
 
-    <!-- Search Movies -->
+    <!-- Search Books -->
     <section class="search">
       <div class="container">
-        <div id="alert"></div>
         <form>
-          <!-- movies and shows radio box -->
           <div class="search-radio">
             <input type="radio" id="author" name="type" value="author" checked />
             <label for="author">Authors</label>
-            <input type="radio" id="tv" name="type" value="tv" />
+            <input type="radio" id="title" name="type" value="title" />
             <label for="shows">Titles</label>
           </div>
           <div class="search-flex">
@@ -56,10 +59,7 @@
       </div>
     </section>
 
-    <!-- Popular Movies -->
-    <main id="main"></main>
-
-    <!-- Footer -->
- 
+    <main class="main"></main>
+  </div>
   </body>
 </html>
