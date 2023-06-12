@@ -14,20 +14,18 @@ body {
   overflow-x: hidden;
   margin: 0;
   padding: 0;
-}
-
-.main-container {
   background-image: url('background.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: top center; 
-  min-height: 100vh;
-  margin-top: 0;
 }
-
 
 ul {
   list-style: none;
+}
+
+a.nav-link:hover{
+   color: plum;
 }
 
 .header .container {
@@ -35,6 +33,7 @@ ul {
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
+  margin-top: 20px;
 }
 
 /* Search */
@@ -63,7 +62,6 @@ ul {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 10px;
 }
 
 .search .container form input[type='text'] {
@@ -108,6 +106,7 @@ ul {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  margin-bottom: 20px;
 }
 
 .book {

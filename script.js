@@ -1,11 +1,16 @@
+
+ 
  const SEARCH_API = 'https://www.googleapis.com/books/v1/volumes?q=';
- const API_KEY= '&key=AIzaSyCMluP6sEA55bAIKbuqJniMcANCE9w1-Qc';
+//  const API_KEY= '&key=AIzaSyCMluP6sEA55bAIKbuqJniMcANCE9w1-Qc';
  const main = document.querySelector('.main');
  const search = document.getElementById('search-term');
  const form = document.querySelector('form');
  const authorRadio = document.getElementById('author');
  const titleRadio = document.getElementById('title');
  const readingListLink = document.querySelector('.nav-link');
+ const bookSearch = document.querySelector('.logo');
+
+
 
 async function fetchBook(url){
     const res = await fetch(url)
@@ -13,19 +18,30 @@ async function fetchBook(url){
     showBooks(data.items)
 }
 
-function addToReadingList(book) {
-  const readingList = JSON.parse(localStorage.getItem('readingList')) || [];
-  
-  // Check if the book is already in the reading list
-  const existingBook = readingList.find((item) => item.id === book.id);
-  if (existingBook) {
-    alert('This book is already in the reading list.');
-    return;
+form.addEventListener('submit', (e)=> {
+  e.preventDefault()
+  const searchTerm = search.value;
+  let searchType = '';
+
+  if (authorRadio.checked) {
+    searchType = 'inauthor';
+  } else if (titleRadio.checked) {
+    searchType = 'intitle';
   }
   
-  readingList.push(book);
-  localStorage.setItem('readingList', JSON.stringify(readingList));
-}
+  if (!searchTerm) {
+    alert('Please enter something');
+    return;
+  }
+
+  if(searchType){
+    const url = SEARCH_API + searchType + ':' + searchTerm + API_KEY;
+    fetchBook(url);
+    search.value = '';
+  } else {
+    window.location.reload()
+  }
+}) 
 
 function showBooks(books, isReadingList){
   main.innerHTML = ''
@@ -73,6 +89,21 @@ function showBooks(books, isReadingList){
   });
 }
 
+function addToReadingList(book) {
+  const readingList = JSON.parse(localStorage.getItem('readingList')) || [];
+  
+  // Check if the book is already in the reading list
+  const existingBook = readingList.find((item) => item.id === book.id);
+  if (existingBook) {
+    alert('This book is already in the reading list.');
+    return;
+  }
+  
+  readingList.push(book);
+  localStorage.setItem('readingList', JSON.stringify(readingList));
+}
+
+
 function displayReadingList() {
   const readingList = JSON.parse(localStorage.getItem('readingList')) || [];
   showBooks(readingList, true);
@@ -86,28 +117,6 @@ function openBookPreview(previewLink) {
   window.open(previewLink, '_blank');
 }
 
-form.addEventListener('submit', (e)=> {
-  e.preventDefault()
-  const searchTerm = search.value;
-  let searchType = '';
-
-  if (authorRadio.checked) {
-    searchType = 'inauthor';
-  } else if (titleRadio.checked) {
-    searchType = 'intitle';
-  }
-  
-  if (!searchTerm) {
-    alert('Please enter something');
-    return;
-  }
-
-  if(searchType){
-    const url = SEARCH_API + searchType + ':' + searchTerm + API_KEY;
-    fetchBook(url);
-    search.value = '';
-  } else {
-    window.location.reload()
-  }
-}) 
-
+bookSearch.addEventListener('click', ()=>{
+  window.location.reload()
+})
