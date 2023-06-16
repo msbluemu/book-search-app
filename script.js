@@ -35,7 +35,7 @@ form.addEventListener('submit', (e)=> {
   }
 
   if(searchType){
-    const url = SEARCH_API + searchType + ':' + searchTerm + API_KEY;
+    const url = SEARCH_API + searchType + ':' + searchTerm + '&startIndex=0&maxResults=20' + API_KEY;
     fetchBook(url);
     search.value = '';
   } else {
