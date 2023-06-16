@@ -1,5 +1,3 @@
-
- 
  const SEARCH_API = 'https://www.googleapis.com/books/v1/volumes?q=';
  const API_KEY= process.env.API_KEY;
  const main = document.querySelector('.main');
