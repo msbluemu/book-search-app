@@ -1,3 +1,4 @@
+import { API_KEY } from './config.js';
  const SEARCH_API = 'https://www.googleapis.com/books/v1/volumes?q=';
  const main = document.querySelector('.main');
  const search = document.getElementById('search-term');
