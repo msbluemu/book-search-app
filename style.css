@@ -103,7 +103,7 @@ a.nav-link:hover{
 
 /*Book Display*/
 
-.main {
+.books-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -145,3 +145,18 @@ a.nav-link:hover{
   text-align: justify;
 }
 
+.no-results, .totalbook {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 20px;
+  color: #1E1F1F;
+}
+
+.remove-from-reading-list {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20px;
+}
